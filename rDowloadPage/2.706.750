@@ -1,0 +1,180 @@
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NongKi CoNs Dowloader</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a; 
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .download-card {
+            background: #121212; 
+            width: 100%;
+            max-width: 360px;
+            padding: 50px 30px;
+            border-radius: 24px;
+            text-align: center;
+            border: 1px solid #222; 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .app-icon {
+            width: 90px;
+            height: 90px;
+            background: #1a1a1a;
+            border-radius: 20px;
+            margin: 0 auto 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #333;
+            transition: 0.3s;
+            overflow: hidden; 
+            padding: 0; 
+        }
+
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .download-card:hover .app-icon {
+            border-color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        .app-name {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .app-info {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 35px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Tombol Utama */
+        .btn-main {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .btn-main:hover {
+            background: #e0e0e0;
+            transform: translateY(-3px);
+        }
+
+        .btn-main.loading {
+            background: #1a1a1a;
+            color: #555;
+            border: 1px solid #333;
+            cursor: wait;
+            pointer-events: none;
+        }
+
+        .btn-main.ready {
+            background: #ffffff;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-main.ready-green {
+            background: #00ff88;
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .loader {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #444;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="download-card">
+        <div class="app-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Roblox_%282025%29_%28App_Icon%29.svg/1280px-Roblox_%282025%29_%28App_Icon%29.svg.png" alt="Roblox Icon">
+        </div>
+        
+        <h2 class="app-name">ROBLOX R63</h2>
+        <p class="app-info">R63-2.706.750</p>
+
+        <button id="actionBtn" class="btn-main" onclick="startProcess()">
+            <i class="fa-solid fa-download"></i> Download
+        </button>
+    </div>
+
+    <script>
+        const btn = document.getElementById('actionBtn');
+        const finalUrl = "https://www.mediafire.com/file/878pztqt13wdhon/Delta-2.706.750.apk/file";
+        
+        let currentState = "start"; 
+
+        function startProcess() {
+            if (currentState === "start") {
+                currentState = "loading";
+                btn.classList.add('loading');
+                btn.innerHTML = `<span class="loader"></span> Checking system...`;
+
+                setTimeout(() => {
+                    currentState = "ready";
+                    btn.classList.remove('loading');
+                    btn.classList.add('ready-green');
+                    btn.innerHTML = `<i class="fa-solid fa-arrow-right-to-bracket"></i> Goto Link`;
+                }, 3000);
+
+            } else if (currentState === "ready") {
+                window.open(finalUrl, '_blank');
+            }
+        }
+    </script>
+
+</body>
+</html>
