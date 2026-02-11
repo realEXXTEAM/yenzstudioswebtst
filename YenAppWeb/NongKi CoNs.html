@@ -1,0 +1,159 @@
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>discord.gg/NeDJHjMKY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Ganti warna di sini */
+            --bg-page: #000000;      /* Background jadi Hitam */
+            --white: #000000;        /* Container jadi Hitam */
+            --text-muted: #9ca3af;   /* Text abu tetep */
+            --text-dark: #ffffff;    /* Text judul jadi Putih */
+            --primary: #ffffff;      /* Warna Biru diganti jadi Putih */
+            --border: #333333;       /* Border jadi gelap biar nyatu sama hitam */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+
+        body { background-color: var(--bg-page); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+        .top-label { 
+            background: var(--white); 
+            font-size: 12px; /* Gue gedein dikit biar kebaca */
+            font-weight: 700; 
+            color: var(--primary); /* Pake warna putih */
+            text-align: center; 
+            padding-top: 10px; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+        }
+
+        .header-menu {
+            background: var(--white);
+            padding: 6px 10px 12px 10px;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            gap: 15px; 
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 55px;
+            gap: 4px;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: slideUp 0.4s ease-out forwards;
+        }
+
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+
+        .icon-box {
+            width: 36px; height: 36px;
+            background: #111111; /* Background icon agak abu gelap dikit biar beda sama hitam pekat */
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+            transition: 0.2s;
+        }
+
+        .icon-box img { width: 22px; height: 22px; object-fit: contain; }
+
+        .menu-name { font-size: 8px; font-weight: 600; color: #888; text-transform: uppercase; }
+
+        /* Style pas tombol aktif */
+        .menu-item.active .icon-box { 
+            border: 2px solid var(--primary); /* Border jadi Putih */
+            background: #222; 
+            transform: translateY(-2px); 
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Glow putih dikit */
+        }
+        .menu-item.active .menu-name { color: var(--primary); }
+
+        .weblive-container { flex: 1; position: relative; background: #000; }
+        iframe { width: 100%; height: 100%; border: none; background: #000; }
+
+        #loader {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); /* Loader background hitam transparan */
+            display: none; align-items: center; justify-content: center; z-index: 50;
+        }
+        .spinner { 
+            width: 24px; height: 24px; 
+            border: 3px solid #333; 
+            border-top: 3px solid var(--primary); /* Spinner muter warna putih */
+            border-radius: 50%; 
+            animation: spin 0.8s linear infinite; 
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="top-label">Yenz Studio</div>
+    <div class="header-menu" id="menuBar"></div>
+
+    <div class="weblive-container">
+        <div id="loader"><div class="spinner"></div></div>
+        <iframe src="about:blank" id="liveFrame"></iframe>
+    </div>
+
+    <script>
+        const myLinks = [
+            { name: "Roblox", url: "https://realexxteam.github.io/ssstiktok/", icon: "https://img.icons8.com/ios_filled/512/F25081/roblox.png" },
+            { name: "Preview Mesh", url: "https://ssyoutube.com/id147GX/", icon: "https://cdn.polyspeak.ai/speakmaster/ecb0e5010deca3490af8276c0a60f7b1.webp" },
+        ];
+
+        const menuBar = document.getElementById('menuBar');
+        const liveFrame = document.getElementById('liveFrame');
+        const loader = document.getElementById('loader');
+
+        // --- SISTEM ANTI BACK ---
+        function enableAntiBack() {
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = function() {
+                window.history.pushState(null, null, window.location.href);
+                alert("Jan Lupa Support NongKi CoNs"); 
+            };
+        }
+
+        function initMenu() {
+            myLinks.forEach((item, index) => {
+                const btn = document.createElement('div');
+                btn.className = 'menu-item';
+                btn.style.animationDelay = `${index * 0.05}s`;
+                btn.innerHTML = `<div class="icon-box"><img src="${item.icon}" alt="icon"></div><span class="menu-name">${item.name}</span>`;
+                btn.onclick = () => changeTab(item.url, btn);
+                menuBar.appendChild(btn);
+            });
+        }
+
+        function changeTab(url, element) {
+            loader.style.display = 'flex';
+            liveFrame.src = url;
+            liveFrame.onload = () => loader.style.display = 'none';
+            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            
+            window.history.pushState(null, null, window.location.href);
+        }
+
+        // Jalankan Fitur
+        enableAntiBack();
+        initMenu();
+        
+        if(myLinks.length > 0) {
+            setTimeout(() => changeTab(myLinks[0].url, document.querySelector('.menu-item')), 300);
+        }
+    </script>
+</body>
+</html>
+
